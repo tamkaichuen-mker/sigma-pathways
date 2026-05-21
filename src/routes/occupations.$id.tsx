@@ -7,7 +7,7 @@ const trendData = Array.from({length:12},(_,i)=>({month:`M${i+1}`,jobs:800+i*50}
 
 function OccupationDetail() {
   const { id } = Route.useParams();
-  const name = id.split("-").map((w) => w[0].toUpperCase() + w.slice(1)).join(" ");
+  const name = id.split("-").map((w: string) => w[0].toUpperCase() + w.slice(1)).join(" ");
   return (
     <div className="max-w-6xl mx-auto px-4 md:px-6 py-10">
       <div className="bg-card border border-border rounded-2xl p-6">
