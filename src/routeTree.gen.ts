@@ -11,17 +11,28 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as UniversitiesRouteImport } from './routes/universities'
 import { Route as TrendsRouteImport } from './routes/trends'
+import { Route as TalentPoolRouteImport } from './routes/talent-pool'
+import { Route as StudentProfileRouteImport } from './routes/student-profile'
 import { Route as SkillTreeRouteImport } from './routes/skill-tree'
 import { Route as SettingsRouteImport } from './routes/settings'
 import { Route as ResumeAnalyzerRouteImport } from './routes/resume-analyzer'
+import { Route as PostJobRouteImport } from './routes/post-job'
 import { Route as PersonalityTestRouteImport } from './routes/personality-test'
+import { Route as NetworkRouteImport } from './routes/network'
 import { Route as JobsRouteImport } from './routes/jobs'
+import { Route as ExchangeRouteImport } from './routes/exchange'
+import { Route as CommunityRouteImport } from './routes/community'
+import { Route as ClassesRouteImport } from './routes/classes'
 import { Route as CareerCoachRouteImport } from './routes/career-coach'
 import { Route as AiTrendsRouteImport } from './routes/ai-trends'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as UniversitiesCompareRouteImport } from './routes/universities.compare'
 import { Route as UniversitiesIdRouteImport } from './routes/universities.$id'
+import { Route as ProfileUsernameRouteImport } from './routes/profile.$username'
+import { Route as OccupationsIdRouteImport } from './routes/occupations.$id'
 import { Route as JobsIdRouteImport } from './routes/jobs.$id'
+import { Route as FieldsFieldRouteImport } from './routes/fields.$field'
+import { Route as CommunityIdRouteImport } from './routes/community.$id'
 
 const UniversitiesRoute = UniversitiesRouteImport.update({
   id: '/universities',
@@ -31,6 +42,16 @@ const UniversitiesRoute = UniversitiesRouteImport.update({
 const TrendsRoute = TrendsRouteImport.update({
   id: '/trends',
   path: '/trends',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TalentPoolRoute = TalentPoolRouteImport.update({
+  id: '/talent-pool',
+  path: '/talent-pool',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const StudentProfileRoute = StudentProfileRouteImport.update({
+  id: '/student-profile',
+  path: '/student-profile',
   getParentRoute: () => rootRouteImport,
 } as any)
 const SkillTreeRoute = SkillTreeRouteImport.update({
@@ -48,14 +69,39 @@ const ResumeAnalyzerRoute = ResumeAnalyzerRouteImport.update({
   path: '/resume-analyzer',
   getParentRoute: () => rootRouteImport,
 } as any)
+const PostJobRoute = PostJobRouteImport.update({
+  id: '/post-job',
+  path: '/post-job',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const PersonalityTestRoute = PersonalityTestRouteImport.update({
   id: '/personality-test',
   path: '/personality-test',
   getParentRoute: () => rootRouteImport,
 } as any)
+const NetworkRoute = NetworkRouteImport.update({
+  id: '/network',
+  path: '/network',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const JobsRoute = JobsRouteImport.update({
   id: '/jobs',
   path: '/jobs',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ExchangeRoute = ExchangeRouteImport.update({
+  id: '/exchange',
+  path: '/exchange',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CommunityRoute = CommunityRouteImport.update({
+  id: '/community',
+  path: '/community',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ClassesRoute = ClassesRouteImport.update({
+  id: '/classes',
+  path: '/classes',
   getParentRoute: () => rootRouteImport,
 } as any)
 const CareerCoachRoute = CareerCoachRouteImport.update({
@@ -83,24 +129,55 @@ const UniversitiesIdRoute = UniversitiesIdRouteImport.update({
   path: '/$id',
   getParentRoute: () => UniversitiesRoute,
 } as any)
+const ProfileUsernameRoute = ProfileUsernameRouteImport.update({
+  id: '/profile/$username',
+  path: '/profile/$username',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const OccupationsIdRoute = OccupationsIdRouteImport.update({
+  id: '/occupations/$id',
+  path: '/occupations/$id',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const JobsIdRoute = JobsIdRouteImport.update({
   id: '/$id',
   path: '/$id',
   getParentRoute: () => JobsRoute,
+} as any)
+const FieldsFieldRoute = FieldsFieldRouteImport.update({
+  id: '/fields/$field',
+  path: '/fields/$field',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CommunityIdRoute = CommunityIdRouteImport.update({
+  id: '/$id',
+  path: '/$id',
+  getParentRoute: () => CommunityRoute,
 } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/ai-trends': typeof AiTrendsRoute
   '/career-coach': typeof CareerCoachRoute
+  '/classes': typeof ClassesRoute
+  '/community': typeof CommunityRouteWithChildren
+  '/exchange': typeof ExchangeRoute
   '/jobs': typeof JobsRouteWithChildren
+  '/network': typeof NetworkRoute
   '/personality-test': typeof PersonalityTestRoute
+  '/post-job': typeof PostJobRoute
   '/resume-analyzer': typeof ResumeAnalyzerRoute
   '/settings': typeof SettingsRoute
   '/skill-tree': typeof SkillTreeRoute
+  '/student-profile': typeof StudentProfileRoute
+  '/talent-pool': typeof TalentPoolRoute
   '/trends': typeof TrendsRoute
   '/universities': typeof UniversitiesRouteWithChildren
+  '/community/$id': typeof CommunityIdRoute
+  '/fields/$field': typeof FieldsFieldRoute
   '/jobs/$id': typeof JobsIdRoute
+  '/occupations/$id': typeof OccupationsIdRoute
+  '/profile/$username': typeof ProfileUsernameRoute
   '/universities/$id': typeof UniversitiesIdRoute
   '/universities/compare': typeof UniversitiesCompareRoute
 }
@@ -108,14 +185,25 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/ai-trends': typeof AiTrendsRoute
   '/career-coach': typeof CareerCoachRoute
+  '/classes': typeof ClassesRoute
+  '/community': typeof CommunityRouteWithChildren
+  '/exchange': typeof ExchangeRoute
   '/jobs': typeof JobsRouteWithChildren
+  '/network': typeof NetworkRoute
   '/personality-test': typeof PersonalityTestRoute
+  '/post-job': typeof PostJobRoute
   '/resume-analyzer': typeof ResumeAnalyzerRoute
   '/settings': typeof SettingsRoute
   '/skill-tree': typeof SkillTreeRoute
+  '/student-profile': typeof StudentProfileRoute
+  '/talent-pool': typeof TalentPoolRoute
   '/trends': typeof TrendsRoute
   '/universities': typeof UniversitiesRouteWithChildren
+  '/community/$id': typeof CommunityIdRoute
+  '/fields/$field': typeof FieldsFieldRoute
   '/jobs/$id': typeof JobsIdRoute
+  '/occupations/$id': typeof OccupationsIdRoute
+  '/profile/$username': typeof ProfileUsernameRoute
   '/universities/$id': typeof UniversitiesIdRoute
   '/universities/compare': typeof UniversitiesCompareRoute
 }
@@ -124,14 +212,25 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/ai-trends': typeof AiTrendsRoute
   '/career-coach': typeof CareerCoachRoute
+  '/classes': typeof ClassesRoute
+  '/community': typeof CommunityRouteWithChildren
+  '/exchange': typeof ExchangeRoute
   '/jobs': typeof JobsRouteWithChildren
+  '/network': typeof NetworkRoute
   '/personality-test': typeof PersonalityTestRoute
+  '/post-job': typeof PostJobRoute
   '/resume-analyzer': typeof ResumeAnalyzerRoute
   '/settings': typeof SettingsRoute
   '/skill-tree': typeof SkillTreeRoute
+  '/student-profile': typeof StudentProfileRoute
+  '/talent-pool': typeof TalentPoolRoute
   '/trends': typeof TrendsRoute
   '/universities': typeof UniversitiesRouteWithChildren
+  '/community/$id': typeof CommunityIdRoute
+  '/fields/$field': typeof FieldsFieldRoute
   '/jobs/$id': typeof JobsIdRoute
+  '/occupations/$id': typeof OccupationsIdRoute
+  '/profile/$username': typeof ProfileUsernameRoute
   '/universities/$id': typeof UniversitiesIdRoute
   '/universities/compare': typeof UniversitiesCompareRoute
 }
@@ -141,14 +240,25 @@ export interface FileRouteTypes {
     | '/'
     | '/ai-trends'
     | '/career-coach'
+    | '/classes'
+    | '/community'
+    | '/exchange'
     | '/jobs'
+    | '/network'
     | '/personality-test'
+    | '/post-job'
     | '/resume-analyzer'
     | '/settings'
     | '/skill-tree'
+    | '/student-profile'
+    | '/talent-pool'
     | '/trends'
     | '/universities'
+    | '/community/$id'
+    | '/fields/$field'
     | '/jobs/$id'
+    | '/occupations/$id'
+    | '/profile/$username'
     | '/universities/$id'
     | '/universities/compare'
   fileRoutesByTo: FileRoutesByTo
@@ -156,14 +266,25 @@ export interface FileRouteTypes {
     | '/'
     | '/ai-trends'
     | '/career-coach'
+    | '/classes'
+    | '/community'
+    | '/exchange'
     | '/jobs'
+    | '/network'
     | '/personality-test'
+    | '/post-job'
     | '/resume-analyzer'
     | '/settings'
     | '/skill-tree'
+    | '/student-profile'
+    | '/talent-pool'
     | '/trends'
     | '/universities'
+    | '/community/$id'
+    | '/fields/$field'
     | '/jobs/$id'
+    | '/occupations/$id'
+    | '/profile/$username'
     | '/universities/$id'
     | '/universities/compare'
   id:
@@ -171,14 +292,25 @@ export interface FileRouteTypes {
     | '/'
     | '/ai-trends'
     | '/career-coach'
+    | '/classes'
+    | '/community'
+    | '/exchange'
     | '/jobs'
+    | '/network'
     | '/personality-test'
+    | '/post-job'
     | '/resume-analyzer'
     | '/settings'
     | '/skill-tree'
+    | '/student-profile'
+    | '/talent-pool'
     | '/trends'
     | '/universities'
+    | '/community/$id'
+    | '/fields/$field'
     | '/jobs/$id'
+    | '/occupations/$id'
+    | '/profile/$username'
     | '/universities/$id'
     | '/universities/compare'
   fileRoutesById: FileRoutesById
@@ -187,13 +319,23 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AiTrendsRoute: typeof AiTrendsRoute
   CareerCoachRoute: typeof CareerCoachRoute
+  ClassesRoute: typeof ClassesRoute
+  CommunityRoute: typeof CommunityRouteWithChildren
+  ExchangeRoute: typeof ExchangeRoute
   JobsRoute: typeof JobsRouteWithChildren
+  NetworkRoute: typeof NetworkRoute
   PersonalityTestRoute: typeof PersonalityTestRoute
+  PostJobRoute: typeof PostJobRoute
   ResumeAnalyzerRoute: typeof ResumeAnalyzerRoute
   SettingsRoute: typeof SettingsRoute
   SkillTreeRoute: typeof SkillTreeRoute
+  StudentProfileRoute: typeof StudentProfileRoute
+  TalentPoolRoute: typeof TalentPoolRoute
   TrendsRoute: typeof TrendsRoute
   UniversitiesRoute: typeof UniversitiesRouteWithChildren
+  FieldsFieldRoute: typeof FieldsFieldRoute
+  OccupationsIdRoute: typeof OccupationsIdRoute
+  ProfileUsernameRoute: typeof ProfileUsernameRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -210,6 +352,20 @@ declare module '@tanstack/react-router' {
       path: '/trends'
       fullPath: '/trends'
       preLoaderRoute: typeof TrendsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/talent-pool': {
+      id: '/talent-pool'
+      path: '/talent-pool'
+      fullPath: '/talent-pool'
+      preLoaderRoute: typeof TalentPoolRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/student-profile': {
+      id: '/student-profile'
+      path: '/student-profile'
+      fullPath: '/student-profile'
+      preLoaderRoute: typeof StudentProfileRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/skill-tree': {
@@ -233,6 +389,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ResumeAnalyzerRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/post-job': {
+      id: '/post-job'
+      path: '/post-job'
+      fullPath: '/post-job'
+      preLoaderRoute: typeof PostJobRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/personality-test': {
       id: '/personality-test'
       path: '/personality-test'
@@ -240,11 +403,39 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PersonalityTestRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/network': {
+      id: '/network'
+      path: '/network'
+      fullPath: '/network'
+      preLoaderRoute: typeof NetworkRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/jobs': {
       id: '/jobs'
       path: '/jobs'
       fullPath: '/jobs'
       preLoaderRoute: typeof JobsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/exchange': {
+      id: '/exchange'
+      path: '/exchange'
+      fullPath: '/exchange'
+      preLoaderRoute: typeof ExchangeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/community': {
+      id: '/community'
+      path: '/community'
+      fullPath: '/community'
+      preLoaderRoute: typeof CommunityRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/classes': {
+      id: '/classes'
+      path: '/classes'
+      fullPath: '/classes'
+      preLoaderRoute: typeof ClassesRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/career-coach': {
@@ -282,6 +473,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof UniversitiesIdRouteImport
       parentRoute: typeof UniversitiesRoute
     }
+    '/profile/$username': {
+      id: '/profile/$username'
+      path: '/profile/$username'
+      fullPath: '/profile/$username'
+      preLoaderRoute: typeof ProfileUsernameRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/occupations/$id': {
+      id: '/occupations/$id'
+      path: '/occupations/$id'
+      fullPath: '/occupations/$id'
+      preLoaderRoute: typeof OccupationsIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/jobs/$id': {
       id: '/jobs/$id'
       path: '/$id'
@@ -289,8 +494,34 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof JobsIdRouteImport
       parentRoute: typeof JobsRoute
     }
+    '/fields/$field': {
+      id: '/fields/$field'
+      path: '/fields/$field'
+      fullPath: '/fields/$field'
+      preLoaderRoute: typeof FieldsFieldRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/community/$id': {
+      id: '/community/$id'
+      path: '/$id'
+      fullPath: '/community/$id'
+      preLoaderRoute: typeof CommunityIdRouteImport
+      parentRoute: typeof CommunityRoute
+    }
   }
 }
+
+interface CommunityRouteChildren {
+  CommunityIdRoute: typeof CommunityIdRoute
+}
+
+const CommunityRouteChildren: CommunityRouteChildren = {
+  CommunityIdRoute: CommunityIdRoute,
+}
+
+const CommunityRouteWithChildren = CommunityRoute._addFileChildren(
+  CommunityRouteChildren,
+)
 
 interface JobsRouteChildren {
   JobsIdRoute: typeof JobsIdRoute
@@ -320,13 +551,23 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AiTrendsRoute: AiTrendsRoute,
   CareerCoachRoute: CareerCoachRoute,
+  ClassesRoute: ClassesRoute,
+  CommunityRoute: CommunityRouteWithChildren,
+  ExchangeRoute: ExchangeRoute,
   JobsRoute: JobsRouteWithChildren,
+  NetworkRoute: NetworkRoute,
   PersonalityTestRoute: PersonalityTestRoute,
+  PostJobRoute: PostJobRoute,
   ResumeAnalyzerRoute: ResumeAnalyzerRoute,
   SettingsRoute: SettingsRoute,
   SkillTreeRoute: SkillTreeRoute,
+  StudentProfileRoute: StudentProfileRoute,
+  TalentPoolRoute: TalentPoolRoute,
   TrendsRoute: TrendsRoute,
   UniversitiesRoute: UniversitiesRouteWithChildren,
+  FieldsFieldRoute: FieldsFieldRoute,
+  OccupationsIdRoute: OccupationsIdRoute,
+  ProfileUsernameRoute: ProfileUsernameRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
