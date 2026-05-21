@@ -9,12 +9,20 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as UniversitiesRouteImport } from './routes/universities'
 import { Route as SkillTreeRouteImport } from './routes/skill-tree'
 import { Route as SettingsRouteImport } from './routes/settings'
 import { Route as JobsRouteImport } from './routes/jobs'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as UniversitiesCompareRouteImport } from './routes/universities.compare'
+import { Route as UniversitiesIdRouteImport } from './routes/universities.$id'
 import { Route as JobsIdRouteImport } from './routes/jobs.$id'
 
+const UniversitiesRoute = UniversitiesRouteImport.update({
+  id: '/universities',
+  path: '/universities',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const SkillTreeRoute = SkillTreeRouteImport.update({
   id: '/skill-tree',
   path: '/skill-tree',
@@ -35,6 +43,16 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const UniversitiesCompareRoute = UniversitiesCompareRouteImport.update({
+  id: '/compare',
+  path: '/compare',
+  getParentRoute: () => UniversitiesRoute,
+} as any)
+const UniversitiesIdRoute = UniversitiesIdRouteImport.update({
+  id: '/$id',
+  path: '/$id',
+  getParentRoute: () => UniversitiesRoute,
+} as any)
 const JobsIdRoute = JobsIdRouteImport.update({
   id: '/$id',
   path: '/$id',
@@ -46,14 +64,20 @@ export interface FileRoutesByFullPath {
   '/jobs': typeof JobsRouteWithChildren
   '/settings': typeof SettingsRoute
   '/skill-tree': typeof SkillTreeRoute
+  '/universities': typeof UniversitiesRouteWithChildren
   '/jobs/$id': typeof JobsIdRoute
+  '/universities/$id': typeof UniversitiesIdRoute
+  '/universities/compare': typeof UniversitiesCompareRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/jobs': typeof JobsRouteWithChildren
   '/settings': typeof SettingsRoute
   '/skill-tree': typeof SkillTreeRoute
+  '/universities': typeof UniversitiesRouteWithChildren
   '/jobs/$id': typeof JobsIdRoute
+  '/universities/$id': typeof UniversitiesIdRoute
+  '/universities/compare': typeof UniversitiesCompareRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -61,14 +85,42 @@ export interface FileRoutesById {
   '/jobs': typeof JobsRouteWithChildren
   '/settings': typeof SettingsRoute
   '/skill-tree': typeof SkillTreeRoute
+  '/universities': typeof UniversitiesRouteWithChildren
   '/jobs/$id': typeof JobsIdRoute
+  '/universities/$id': typeof UniversitiesIdRoute
+  '/universities/compare': typeof UniversitiesCompareRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/jobs' | '/settings' | '/skill-tree' | '/jobs/$id'
+  fullPaths:
+    | '/'
+    | '/jobs'
+    | '/settings'
+    | '/skill-tree'
+    | '/universities'
+    | '/jobs/$id'
+    | '/universities/$id'
+    | '/universities/compare'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/jobs' | '/settings' | '/skill-tree' | '/jobs/$id'
-  id: '__root__' | '/' | '/jobs' | '/settings' | '/skill-tree' | '/jobs/$id'
+  to:
+    | '/'
+    | '/jobs'
+    | '/settings'
+    | '/skill-tree'
+    | '/universities'
+    | '/jobs/$id'
+    | '/universities/$id'
+    | '/universities/compare'
+  id:
+    | '__root__'
+    | '/'
+    | '/jobs'
+    | '/settings'
+    | '/skill-tree'
+    | '/universities'
+    | '/jobs/$id'
+    | '/universities/$id'
+    | '/universities/compare'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -76,10 +128,18 @@ export interface RootRouteChildren {
   JobsRoute: typeof JobsRouteWithChildren
   SettingsRoute: typeof SettingsRoute
   SkillTreeRoute: typeof SkillTreeRoute
+  UniversitiesRoute: typeof UniversitiesRouteWithChildren
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/universities': {
+      id: '/universities'
+      path: '/universities'
+      fullPath: '/universities'
+      preLoaderRoute: typeof UniversitiesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/skill-tree': {
       id: '/skill-tree'
       path: '/skill-tree'
@@ -108,6 +168,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/universities/compare': {
+      id: '/universities/compare'
+      path: '/compare'
+      fullPath: '/universities/compare'
+      preLoaderRoute: typeof UniversitiesCompareRouteImport
+      parentRoute: typeof UniversitiesRoute
+    }
+    '/universities/$id': {
+      id: '/universities/$id'
+      path: '/$id'
+      fullPath: '/universities/$id'
+      preLoaderRoute: typeof UniversitiesIdRouteImport
+      parentRoute: typeof UniversitiesRoute
+    }
     '/jobs/$id': {
       id: '/jobs/$id'
       path: '/$id'
@@ -128,11 +202,26 @@ const JobsRouteChildren: JobsRouteChildren = {
 
 const JobsRouteWithChildren = JobsRoute._addFileChildren(JobsRouteChildren)
 
+interface UniversitiesRouteChildren {
+  UniversitiesIdRoute: typeof UniversitiesIdRoute
+  UniversitiesCompareRoute: typeof UniversitiesCompareRoute
+}
+
+const UniversitiesRouteChildren: UniversitiesRouteChildren = {
+  UniversitiesIdRoute: UniversitiesIdRoute,
+  UniversitiesCompareRoute: UniversitiesCompareRoute,
+}
+
+const UniversitiesRouteWithChildren = UniversitiesRoute._addFileChildren(
+  UniversitiesRouteChildren,
+)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   JobsRoute: JobsRouteWithChildren,
   SettingsRoute: SettingsRoute,
   SkillTreeRoute: SkillTreeRoute,
+  UniversitiesRoute: UniversitiesRouteWithChildren,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
