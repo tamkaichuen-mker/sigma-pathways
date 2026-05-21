@@ -10,9 +10,14 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as UniversitiesRouteImport } from './routes/universities'
+import { Route as TrendsRouteImport } from './routes/trends'
 import { Route as SkillTreeRouteImport } from './routes/skill-tree'
 import { Route as SettingsRouteImport } from './routes/settings'
+import { Route as ResumeAnalyzerRouteImport } from './routes/resume-analyzer'
+import { Route as PersonalityTestRouteImport } from './routes/personality-test'
 import { Route as JobsRouteImport } from './routes/jobs'
+import { Route as CareerCoachRouteImport } from './routes/career-coach'
+import { Route as AiTrendsRouteImport } from './routes/ai-trends'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as UniversitiesCompareRouteImport } from './routes/universities.compare'
 import { Route as UniversitiesIdRouteImport } from './routes/universities.$id'
@@ -21,6 +26,11 @@ import { Route as JobsIdRouteImport } from './routes/jobs.$id'
 const UniversitiesRoute = UniversitiesRouteImport.update({
   id: '/universities',
   path: '/universities',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TrendsRoute = TrendsRouteImport.update({
+  id: '/trends',
+  path: '/trends',
   getParentRoute: () => rootRouteImport,
 } as any)
 const SkillTreeRoute = SkillTreeRouteImport.update({
@@ -33,9 +43,29 @@ const SettingsRoute = SettingsRouteImport.update({
   path: '/settings',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ResumeAnalyzerRoute = ResumeAnalyzerRouteImport.update({
+  id: '/resume-analyzer',
+  path: '/resume-analyzer',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PersonalityTestRoute = PersonalityTestRouteImport.update({
+  id: '/personality-test',
+  path: '/personality-test',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const JobsRoute = JobsRouteImport.update({
   id: '/jobs',
   path: '/jobs',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CareerCoachRoute = CareerCoachRouteImport.update({
+  id: '/career-coach',
+  path: '/career-coach',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AiTrendsRoute = AiTrendsRouteImport.update({
+  id: '/ai-trends',
+  path: '/ai-trends',
   getParentRoute: () => rootRouteImport,
 } as any)
 const IndexRoute = IndexRouteImport.update({
@@ -61,9 +91,14 @@ const JobsIdRoute = JobsIdRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/ai-trends': typeof AiTrendsRoute
+  '/career-coach': typeof CareerCoachRoute
   '/jobs': typeof JobsRouteWithChildren
+  '/personality-test': typeof PersonalityTestRoute
+  '/resume-analyzer': typeof ResumeAnalyzerRoute
   '/settings': typeof SettingsRoute
   '/skill-tree': typeof SkillTreeRoute
+  '/trends': typeof TrendsRoute
   '/universities': typeof UniversitiesRouteWithChildren
   '/jobs/$id': typeof JobsIdRoute
   '/universities/$id': typeof UniversitiesIdRoute
@@ -71,9 +106,14 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/ai-trends': typeof AiTrendsRoute
+  '/career-coach': typeof CareerCoachRoute
   '/jobs': typeof JobsRouteWithChildren
+  '/personality-test': typeof PersonalityTestRoute
+  '/resume-analyzer': typeof ResumeAnalyzerRoute
   '/settings': typeof SettingsRoute
   '/skill-tree': typeof SkillTreeRoute
+  '/trends': typeof TrendsRoute
   '/universities': typeof UniversitiesRouteWithChildren
   '/jobs/$id': typeof JobsIdRoute
   '/universities/$id': typeof UniversitiesIdRoute
@@ -82,9 +122,14 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/ai-trends': typeof AiTrendsRoute
+  '/career-coach': typeof CareerCoachRoute
   '/jobs': typeof JobsRouteWithChildren
+  '/personality-test': typeof PersonalityTestRoute
+  '/resume-analyzer': typeof ResumeAnalyzerRoute
   '/settings': typeof SettingsRoute
   '/skill-tree': typeof SkillTreeRoute
+  '/trends': typeof TrendsRoute
   '/universities': typeof UniversitiesRouteWithChildren
   '/jobs/$id': typeof JobsIdRoute
   '/universities/$id': typeof UniversitiesIdRoute
@@ -94,9 +139,14 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/ai-trends'
+    | '/career-coach'
     | '/jobs'
+    | '/personality-test'
+    | '/resume-analyzer'
     | '/settings'
     | '/skill-tree'
+    | '/trends'
     | '/universities'
     | '/jobs/$id'
     | '/universities/$id'
@@ -104,9 +154,14 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/ai-trends'
+    | '/career-coach'
     | '/jobs'
+    | '/personality-test'
+    | '/resume-analyzer'
     | '/settings'
     | '/skill-tree'
+    | '/trends'
     | '/universities'
     | '/jobs/$id'
     | '/universities/$id'
@@ -114,9 +169,14 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/'
+    | '/ai-trends'
+    | '/career-coach'
     | '/jobs'
+    | '/personality-test'
+    | '/resume-analyzer'
     | '/settings'
     | '/skill-tree'
+    | '/trends'
     | '/universities'
     | '/jobs/$id'
     | '/universities/$id'
@@ -125,9 +185,14 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AiTrendsRoute: typeof AiTrendsRoute
+  CareerCoachRoute: typeof CareerCoachRoute
   JobsRoute: typeof JobsRouteWithChildren
+  PersonalityTestRoute: typeof PersonalityTestRoute
+  ResumeAnalyzerRoute: typeof ResumeAnalyzerRoute
   SettingsRoute: typeof SettingsRoute
   SkillTreeRoute: typeof SkillTreeRoute
+  TrendsRoute: typeof TrendsRoute
   UniversitiesRoute: typeof UniversitiesRouteWithChildren
 }
 
@@ -138,6 +203,13 @@ declare module '@tanstack/react-router' {
       path: '/universities'
       fullPath: '/universities'
       preLoaderRoute: typeof UniversitiesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/trends': {
+      id: '/trends'
+      path: '/trends'
+      fullPath: '/trends'
+      preLoaderRoute: typeof TrendsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/skill-tree': {
@@ -154,11 +226,39 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SettingsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/resume-analyzer': {
+      id: '/resume-analyzer'
+      path: '/resume-analyzer'
+      fullPath: '/resume-analyzer'
+      preLoaderRoute: typeof ResumeAnalyzerRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/personality-test': {
+      id: '/personality-test'
+      path: '/personality-test'
+      fullPath: '/personality-test'
+      preLoaderRoute: typeof PersonalityTestRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/jobs': {
       id: '/jobs'
       path: '/jobs'
       fullPath: '/jobs'
       preLoaderRoute: typeof JobsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/career-coach': {
+      id: '/career-coach'
+      path: '/career-coach'
+      fullPath: '/career-coach'
+      preLoaderRoute: typeof CareerCoachRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/ai-trends': {
+      id: '/ai-trends'
+      path: '/ai-trends'
+      fullPath: '/ai-trends'
+      preLoaderRoute: typeof AiTrendsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/': {
@@ -218,9 +318,14 @@ const UniversitiesRouteWithChildren = UniversitiesRoute._addFileChildren(
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AiTrendsRoute: AiTrendsRoute,
+  CareerCoachRoute: CareerCoachRoute,
   JobsRoute: JobsRouteWithChildren,
+  PersonalityTestRoute: PersonalityTestRoute,
+  ResumeAnalyzerRoute: ResumeAnalyzerRoute,
   SettingsRoute: SettingsRoute,
   SkillTreeRoute: SkillTreeRoute,
+  TrendsRoute: TrendsRoute,
   UniversitiesRoute: UniversitiesRouteWithChildren,
 }
 export const routeTree = rootRouteImport
