@@ -4,6 +4,8 @@
 
 @custom-variant dark (&:is(.dark *));
 
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=DM+Sans:wght@400;500;600;700&display=swap');
+
 /*
  * Design system definition.
  *
@@ -97,6 +99,46 @@
   --sidebar-ring: oklch(0.704 0.04 256.788);
 }
 
+:root {
+  --radius: 1rem;
+  --background: oklch(0.145 0 0);
+  --foreground: oklch(1 0 0);
+  --card: oklch(0.19 0.04 280);
+  --card-foreground: oklch(1 0 0);
+  --popover: oklch(0.19 0.04 280);
+  --popover-foreground: oklch(1 0 0);
+  --primary: oklch(0.62 0.21 290);
+  --primary-foreground: oklch(1 0 0);
+  --secondary: oklch(0.78 0.16 175);
+  --secondary-foreground: oklch(0.145 0 0);
+  --muted: oklch(0.24 0.03 280);
+  --muted-foreground: oklch(0.72 0.02 280);
+  --accent: oklch(0.62 0.21 290);
+  --accent-foreground: oklch(1 0 0);
+  --destructive: oklch(0.62 0.24 25);
+  --destructive-foreground: oklch(1 0 0);
+  --border: oklch(0.28 0.03 280);
+  --input: oklch(0.22 0.03 280);
+  --ring: oklch(0.62 0.21 290);
+  --chart-1: oklch(0.62 0.21 290);
+  --chart-2: oklch(0.78 0.16 175);
+  --chart-3: oklch(0.7 0.2 40);
+  --chart-4: oklch(0.7 0.18 100);
+  --chart-5: oklch(0.62 0.24 25);
+  --sidebar: oklch(0.17 0.03 280);
+  --sidebar-foreground: oklch(1 0 0);
+  --sidebar-primary: oklch(0.62 0.21 290);
+  --sidebar-primary-foreground: oklch(1 0 0);
+  --sidebar-accent: oklch(0.24 0.03 280);
+  --sidebar-accent-foreground: oklch(1 0 0);
+  --sidebar-border: oklch(0.28 0.03 280);
+  --sidebar-ring: oklch(0.62 0.21 290);
+
+  --cta: #FF6B35;
+  --gradient-primary: linear-gradient(135deg, #6C63FF 0%, #00D4AA 100%);
+  --shadow-glow: 0 0 30px -5px rgb(108 99 255 / 0.5);
+}
+
 .dark {
   --background: oklch(0.129 0.042 264.695);
   --foreground: oklch(0.984 0.003 247.858);
@@ -140,5 +182,50 @@
   body {
     background-color: var(--color-background);
     color: var(--color-foreground);
+    font-family: 'DM Sans', system-ui, sans-serif;
   }
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+  }
+  .gradient-primary { background: var(--gradient-primary); }
+  .text-gradient {
+    background: var(--gradient-primary);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  .card-hover { transition: all 0.3s ease; }
+  .card-hover:hover {
+    box-shadow: var(--shadow-glow);
+    border-color: #6C63FF;
+    transform: translateY(-2px);
+  }
+  .btn-gradient {
+    background: var(--gradient-primary);
+    color: white;
+    transition: all 0.3s ease;
+  }
+  .btn-gradient:hover {
+    box-shadow: var(--shadow-glow);
+    transform: translateY(-1px);
+  }
+  .btn-cta { background: #FF6B35; color: white; }
+  .btn-cta:hover { background: #ff7d4f; }
+  ::-webkit-scrollbar { width: 10px; height: 10px; }
+  ::-webkit-scrollbar-track { background: #0D0D0D; }
+  ::-webkit-scrollbar-thumb { background: #2A2A3E; border-radius: 6px; }
+  ::-webkit-scrollbar-thumb:hover { background: #6C63FF; }
+  @keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-20px); }
+  }
+  .animate-float { animation: float 6s ease-in-out infinite; }
+  .animate-float-slow { animation: float 10s ease-in-out infinite; }
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .animate-fade-in { animation: fadeIn 0.5s ease-out forwards; }
 }
