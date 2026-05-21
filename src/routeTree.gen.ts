@@ -9,11 +9,17 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as SkillTreeRouteImport } from './routes/skill-tree'
 import { Route as SettingsRouteImport } from './routes/settings'
 import { Route as JobsRouteImport } from './routes/jobs'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as JobsIdRouteImport } from './routes/jobs.$id'
 
+const SkillTreeRoute = SkillTreeRouteImport.update({
+  id: '/skill-tree',
+  path: '/skill-tree',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const SettingsRoute = SettingsRouteImport.update({
   id: '/settings',
   path: '/settings',
@@ -39,12 +45,14 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/jobs': typeof JobsRouteWithChildren
   '/settings': typeof SettingsRoute
+  '/skill-tree': typeof SkillTreeRoute
   '/jobs/$id': typeof JobsIdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/jobs': typeof JobsRouteWithChildren
   '/settings': typeof SettingsRoute
+  '/skill-tree': typeof SkillTreeRoute
   '/jobs/$id': typeof JobsIdRoute
 }
 export interface FileRoutesById {
@@ -52,24 +60,33 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/jobs': typeof JobsRouteWithChildren
   '/settings': typeof SettingsRoute
+  '/skill-tree': typeof SkillTreeRoute
   '/jobs/$id': typeof JobsIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/jobs' | '/settings' | '/jobs/$id'
+  fullPaths: '/' | '/jobs' | '/settings' | '/skill-tree' | '/jobs/$id'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/jobs' | '/settings' | '/jobs/$id'
-  id: '__root__' | '/' | '/jobs' | '/settings' | '/jobs/$id'
+  to: '/' | '/jobs' | '/settings' | '/skill-tree' | '/jobs/$id'
+  id: '__root__' | '/' | '/jobs' | '/settings' | '/skill-tree' | '/jobs/$id'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   JobsRoute: typeof JobsRouteWithChildren
   SettingsRoute: typeof SettingsRoute
+  SkillTreeRoute: typeof SkillTreeRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/skill-tree': {
+      id: '/skill-tree'
+      path: '/skill-tree'
+      fullPath: '/skill-tree'
+      preLoaderRoute: typeof SkillTreeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/settings': {
       id: '/settings'
       path: '/settings'
@@ -115,6 +132,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   JobsRoute: JobsRouteWithChildren,
   SettingsRoute: SettingsRoute,
+  SkillTreeRoute: SkillTreeRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
