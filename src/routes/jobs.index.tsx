@@ -2,6 +2,7 @@ import { createFileRoute, Link, useSearch } from "@tanstack/react-router";
 import { useMemo, useState } from "react";
 import { jobs } from "@/data/jobs";
 import { MapPin, Building2, CheckCircle2, Bookmark, Filter, X } from "lucide-react";
+import { useSavedJob } from "@/lib/saved-jobs";
 
 export const Route = createFileRoute("/jobs/")({
   component: JobsPage,
@@ -131,24 +132,41 @@ function JobsPage() {
             </div>
           )}
           {filtered.map((j) => (
-            <div key={j.id} className="bg-card border border-border rounded-2xl p-5 card-hover">
-              <div className="flex items-start gap-4">
-                <div className="w-14 h-14 rounded-xl gradient-primary flex items-center justify-center text-white font-bold shrink-0">
-                  {j.company[0]}
-                </div>
-                <div className="flex-1 min-w-0">
-                  <div className="flex items-start justify-between gap-2">
-                    <div>
-                      <Link to="/jobs/$id" params={{ id: j.id }} className="font-semibold text-lg hover:text-primary">{j.title}</Link>
-                      <div className="text-sm text-muted-foreground flex items-center gap-1 mt-1">
-                        <Building2 className="w-3 h-3" /> {j.company}
-                        {j.verified && <CheckCircle2 className="w-3 h-3 text-secondary" />}
-                      </div>
-                    </div>
-                    <button aria-label="Save" className="p-2 hover:bg-muted rounded-lg">
-                      <Bookmark className="w-4 h-4" />
-                    </button>
-                  </div>
+            <JobCard key={j.id} j={j} />
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function JobCard({ j }: { j: typeof jobs[number] }) {
+  const { saved, toggle } = useSavedJob(j.id);
+  return (
+    <div className="bg-card border border-border rounded-2xl p-5 card-hover">
+      <div className="flex items-start gap-4">
+        <div className="w-14 h-14 rounded-xl gradient-primary flex items-center justify-center text-white font-bold shrink-0">
+          {j.company[0]}
+        </div>
+        <div className="flex-1 min-w-0">
+          <div className="flex items-start justify-between gap-2">
+            <div>
+              <Link to="/jobs/$id" params={{ id: j.id }} className="font-semibold text-lg hover:text-primary">{j.title}</Link>
+              <div className="text-sm text-muted-foreground flex items-center gap-1 mt-1">
+                <Building2 className="w-3 h-3" /> {j.company}
+                {j.verified && <CheckCircle2 className="w-3 h-3 text-secondary" />}
+              </div>
+            </div>
+            <button
+              type="button"
+              onClick={toggle}
+              aria-label={saved ? "Unsave job" : "Save job"}
+              aria-pressed={saved}
+              className={`p-2 hover:bg-muted rounded-lg transition ${saved ? "text-primary" : ""}`}
+            >
+              <Bookmark className={`w-4 h-4 ${saved ? "fill-current" : ""}`} />
+            </button>
+          </div>
                   <div className="flex flex-wrap gap-2 mt-3 text-xs">
                     <span className="px-2 py-1 rounded-md bg-primary/10 text-primary">{j.workMode}</span>
                     <span className="px-2 py-1 rounded-md bg-muted">{j.jobType}</span>
@@ -171,9 +189,5 @@ function JobsPage() {
                 </div>
               </div>
             </div>
-          ))}
-        </div>
-      </div>
-    </div>
   );
 }

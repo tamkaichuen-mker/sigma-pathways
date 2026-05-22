@@ -2,6 +2,7 @@ import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { useState } from "react";
 import { getJob, jobs } from "@/data/jobs";
 import { Building2, CheckCircle2, MapPin, Star, Bookmark, Sparkles } from "lucide-react";
+import { useSavedJob } from "@/lib/saved-jobs";
 
 export const Route = createFileRoute("/jobs/$id")({
   component: JobDetail,
@@ -24,6 +25,7 @@ function JobDetail() {
   const job = getJob(id);
   const [tab, setTab] = useState<Tab>("Overview");
   const [reviewOpen, setReviewOpen] = useState(false);
+  const { saved, toggle } = useSavedJob(id);
 
   if (!job) {
     return (
@@ -55,8 +57,15 @@ function JobDetail() {
               <span className="px-3 py-1 rounded-full bg-secondary/15 text-secondary text-sm font-semibold">{job.salary}</span>
             </div>
             <div className="flex gap-3 mt-6">
-              <button className="btn-gradient px-6 py-3 rounded-xl font-semibold">Apply Now</button>
-              <button className="px-4 py-3 rounded-xl border border-border inline-flex items-center gap-2"><Bookmark className="w-4 h-4" /> Save</button>
+              <button type="button" className="btn-gradient px-6 py-3 rounded-xl font-semibold">Apply Now</button>
+              <button
+                type="button"
+                onClick={toggle}
+                aria-pressed={saved}
+                className={`px-4 py-3 rounded-xl border border-border inline-flex items-center gap-2 ${saved ? "text-primary border-primary" : ""}`}
+              >
+                <Bookmark className={`w-4 h-4 ${saved ? "fill-current" : ""}`} /> {saved ? "Saved" : "Save"}
+              </button>
             </div>
           </div>
 
