@@ -1,7 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowUp, ArrowDown, MessageSquare, Share2, Bookmark } from "lucide-react";
 
-export const Route = createFileRoute("/community")({ component: CommunityPage });
+export const Route = createFileRoute("/community/")({ component: CommunityPage });
 
 const categories = ["Career Advice","Job Hunting","Tech Industry","Healthcare","Finance","Fresh Graduates","Financial Needs Support","Study & Learn","Company Culture","University Life","SigmaJob Updates"];
 const posts = [
