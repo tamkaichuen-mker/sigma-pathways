@@ -1,4 +1,4 @@
-import { Link, useRouterState } from "@tanstack/react-router";
+import { Link, useRouterState, useNavigate } from "@tanstack/react-router";
 import { Search, Bell, Menu, X } from "lucide-react";
 import { useState } from "react";
 
@@ -15,7 +15,17 @@ const navLinks = [
 
 export function Navbar() {
   const [open, setOpen] = useState(false);
+  const [searchOpen, setSearchOpen] = useState(false);
+  const [query, setQuery] = useState("");
+  const navigate = useNavigate();
   const pathname = useRouterState({ select: (s) => s.location.pathname });
+
+  const submitSearch = (e: React.FormEvent) => {
+    e.preventDefault();
+    const q = query.trim();
+    navigate({ to: "/jobs", search: q ? { skill: q } : {} });
+    setSearchOpen(false);
+  };
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-xl border-b border-border">
@@ -43,9 +53,27 @@ export function Navbar() {
         </nav>
 
         <div className="hidden md:flex items-center gap-3">
-          <button aria-label="Search" className="p-2 rounded-lg hover:bg-muted transition">
-            <Search className="w-5 h-5" />
-          </button>
+          <form onSubmit={submitSearch} className="flex items-center">
+            {searchOpen ? (
+              <input
+                autoFocus
+                value={query}
+                onChange={(e) => setQuery(e.target.value)}
+                onBlur={() => !query && setSearchOpen(false)}
+                placeholder="Search jobs, skills..."
+                className="px-3 py-2 rounded-lg bg-input border border-border text-sm w-56"
+              />
+            ) : (
+              <button
+                type="button"
+                aria-label="Search"
+                onClick={() => setSearchOpen(true)}
+                className="p-2 rounded-lg hover:bg-muted transition"
+              >
+                <Search className="w-5 h-5" />
+              </button>
+            )}
+          </form>
           <button aria-label="Notifications" className="p-2 rounded-lg hover:bg-muted transition relative">
             <Bell className="w-5 h-5" />
             <span className="absolute top-1 right-1 w-2 h-2 rounded-full bg-[#FF6B35]" />
