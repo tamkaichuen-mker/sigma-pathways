@@ -3,7 +3,7 @@ import { useMemo, useState } from "react";
 import { universities } from "@/data/universities";
 import { MapPin, Award, Sparkles } from "lucide-react";
 
-export const Route = createFileRoute("/universities")({
+export const Route = createFileRoute("/universities/")({
   component: UniversitiesPage,
   validateSearch: (s: Record<string, unknown>) => ({
     field: typeof s.field === "string" ? s.field : undefined,

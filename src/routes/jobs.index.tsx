@@ -3,7 +3,7 @@ import { useMemo, useState } from "react";
 import { jobs } from "@/data/jobs";
 import { MapPin, Building2, CheckCircle2, Bookmark, Filter, X } from "lucide-react";
 
-export const Route = createFileRoute("/jobs")({
+export const Route = createFileRoute("/jobs/")({
   component: JobsPage,
   validateSearch: (s: Record<string, unknown>) => ({
     skill: typeof s.skill === "string" ? s.skill : undefined,
