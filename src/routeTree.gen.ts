@@ -26,6 +26,7 @@ import { Route as ClassesRouteImport } from './routes/classes'
 import { Route as CareerCoachRouteImport } from './routes/career-coach'
 import { Route as AiTrendsRouteImport } from './routes/ai-trends'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as JobsIndexRouteImport } from './routes/jobs.index'
 import { Route as UniversitiesCompareRouteImport } from './routes/universities.compare'
 import { Route as UniversitiesIdRouteImport } from './routes/universities.$id'
 import { Route as ProfileUsernameRouteImport } from './routes/profile.$username'
@@ -119,6 +120,11 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const JobsIndexRoute = JobsIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => JobsRoute,
+} as any)
 const UniversitiesCompareRoute = UniversitiesCompareRouteImport.update({
   id: '/compare',
   path: '/compare',
@@ -180,6 +186,7 @@ export interface FileRoutesByFullPath {
   '/profile/$username': typeof ProfileUsernameRoute
   '/universities/$id': typeof UniversitiesIdRoute
   '/universities/compare': typeof UniversitiesCompareRoute
+  '/jobs/': typeof JobsIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -188,7 +195,6 @@ export interface FileRoutesByTo {
   '/classes': typeof ClassesRoute
   '/community': typeof CommunityRouteWithChildren
   '/exchange': typeof ExchangeRoute
-  '/jobs': typeof JobsRouteWithChildren
   '/network': typeof NetworkRoute
   '/personality-test': typeof PersonalityTestRoute
   '/post-job': typeof PostJobRoute
@@ -206,6 +212,7 @@ export interface FileRoutesByTo {
   '/profile/$username': typeof ProfileUsernameRoute
   '/universities/$id': typeof UniversitiesIdRoute
   '/universities/compare': typeof UniversitiesCompareRoute
+  '/jobs': typeof JobsIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -233,6 +240,7 @@ export interface FileRoutesById {
   '/profile/$username': typeof ProfileUsernameRoute
   '/universities/$id': typeof UniversitiesIdRoute
   '/universities/compare': typeof UniversitiesCompareRoute
+  '/jobs/': typeof JobsIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -261,6 +269,7 @@ export interface FileRouteTypes {
     | '/profile/$username'
     | '/universities/$id'
     | '/universities/compare'
+    | '/jobs/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -269,7 +278,6 @@ export interface FileRouteTypes {
     | '/classes'
     | '/community'
     | '/exchange'
-    | '/jobs'
     | '/network'
     | '/personality-test'
     | '/post-job'
@@ -287,6 +295,7 @@ export interface FileRouteTypes {
     | '/profile/$username'
     | '/universities/$id'
     | '/universities/compare'
+    | '/jobs'
   id:
     | '__root__'
     | '/'
@@ -313,6 +322,7 @@ export interface FileRouteTypes {
     | '/profile/$username'
     | '/universities/$id'
     | '/universities/compare'
+    | '/jobs/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -459,6 +469,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/jobs/': {
+      id: '/jobs/'
+      path: '/'
+      fullPath: '/jobs/'
+      preLoaderRoute: typeof JobsIndexRouteImport
+      parentRoute: typeof JobsRoute
+    }
     '/universities/compare': {
       id: '/universities/compare'
       path: '/compare'
@@ -525,10 +542,12 @@ const CommunityRouteWithChildren = CommunityRoute._addFileChildren(
 
 interface JobsRouteChildren {
   JobsIdRoute: typeof JobsIdRoute
+  JobsIndexRoute: typeof JobsIndexRoute
 }
 
 const JobsRouteChildren: JobsRouteChildren = {
   JobsIdRoute: JobsIdRoute,
+  JobsIndexRoute: JobsIndexRoute,
 }
 
 const JobsRouteWithChildren = JobsRoute._addFileChildren(JobsRouteChildren)
